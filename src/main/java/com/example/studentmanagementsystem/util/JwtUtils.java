@@ -11,6 +11,9 @@ import java.util.Map;
 
 @Data
 @Component
+/*
+* 只要知道这个是个工具类用来生成jwt的，和你们的编程没太大关系，不需要看
+* */
 public class JwtUtils {
 
     @Value("${jwt.expiration}")

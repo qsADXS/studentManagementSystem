@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user")//表示这个controller的所有接口都是以/user开头的
 @Slf4j
 public class UserController {
     @Autowired
     StudentServiceImpl studentService;
-    @PostMapping("/login")
-    public LoginDTO login(@RequestParam String id, @RequestParam String password, @RequestParam int level){
+    //表示一个post请求
+    @PostMapping("/login")//表示这个接口的路径是/user/login
+    public LoginDTO login(@RequestParam String id, @RequestParam String password, @RequestParam int level){//这里的参数是从前端传过来的，@RequestParam表示这个参数是从url中获取的
         log.info("login");
         if(level == 1) {
             log.info("学生登录");
