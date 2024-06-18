@@ -19,8 +19,9 @@ public class UserController {
     @Autowired
     StudentServiceImpl studentService;
     //表示一个post请求
-    @PostMapping("/login/{level}")//表示这个接口的路径是/user/login
-    public LoginDTO login(@PathVariable int level,@RequestBody String json){//这里的参数是从前端传过来的，@RequestParam表示这个参数是从url中获取的
+    @PostMapping("/login/{level}")//表示这个接口的路径是/user/login/{level}，其中的level是一个参数
+    public LoginDTO login(@PathVariable int level,@RequestBody String json){
+        //↑ 这里的参数是从前端传过来的，@RequestParam表示这个参数是从url中获取的，PathVariable表示这个参数是从路径中获取的，RequestBody表示这个参数是从请求体中获取的
         log.info("login");
         JSONObject jsonObject = JSONUtil.parseObj(json);
         String id = jsonObject.getStr("id");
