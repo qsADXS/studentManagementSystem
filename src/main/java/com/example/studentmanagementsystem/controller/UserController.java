@@ -23,6 +23,7 @@ public class UserController {
     public LoginDTO login(@PathVariable int level,@RequestBody String json){
         //↑ 这里的参数是从前端传过来的，@RequestParam表示这个参数是从url中获取的，PathVariable表示这个参数是从路径中获取的，RequestBody表示这个参数是从请求体中获取的
         log.info("login");
+        //JSONObject是第三方工具hutool的类，用于解析json
         JSONObject jsonObject = JSONUtil.parseObj(json);
         String id = jsonObject.getStr("id");
         String password = jsonObject.getStr("password");
