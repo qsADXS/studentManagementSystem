@@ -12,10 +12,11 @@ import lombok.NoArgsConstructor;
 public class StudentDTO {
     String id;
     String name;
-    final int level = 3;
     int major_id;
     int sex;
     int age;
+    //todo 修改
+    String major = "计算机科学与技术";
     public StudentDTO(Student student) {
         this.id = student.getId();
         this.name = student.getName();
