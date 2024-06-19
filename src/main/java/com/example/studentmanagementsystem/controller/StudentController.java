@@ -23,8 +23,13 @@ public class StudentController {
     @GetMapping("/info/{id}")
     public StudentDTO getStudentInfo(@PathVariable String id, HttpServletRequest request){
         Claims claims = JwtUtils.getClaims(request);
-        //todo 根据权限等级做不同判断
+        /*
+        *这里的claims是一个map，里面存放了token中的信息
+        *int level = (int)claims.get("level");
+        *String id = (String)claims.get("id");
+        */
 
+        //todo 根据权限等级做不同判断
         log.info("id={}",id);
         Student student = studentService.getStudentInfo(id);
         return new StudentDTO(student);

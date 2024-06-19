@@ -1,7 +1,5 @@
 package com.example.studentmanagementsystem.common;
 
-import cn.hutool.json.JSONUtil;
-
 public enum ErrorEnum {
 	// 数据操作错误定义
 	ERROR(400,"BAD_REQUEST"), //这表示服务器无法处理请求，因为请求包含无效参数。

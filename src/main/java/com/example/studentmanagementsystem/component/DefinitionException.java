@@ -1,5 +1,4 @@
 package com.example.studentmanagementsystem.component;
-
 import com.example.studentmanagementsystem.common.ErrorEnum;
 
 public class DefinitionException extends RuntimeException{
