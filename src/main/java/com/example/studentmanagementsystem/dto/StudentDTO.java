@@ -14,9 +14,13 @@ public class StudentDTO {
     String name;
     final int level = 3;
     int major_id;
+    int sex;
+    int age;
     public StudentDTO(Student student) {
         this.id = student.getId();
         this.name = student.getName();
         this.major_id = student.getMajor_id();
+        this.age = student.getAge();
+        this.sex = student.getSex();
     }
 }

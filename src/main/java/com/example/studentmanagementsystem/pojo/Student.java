@@ -19,4 +19,6 @@ public class Student {
     String password;
     final int level = 1;//学生的level为1
     int major_id;//专业id
+    int sex;
+    int age;
 }

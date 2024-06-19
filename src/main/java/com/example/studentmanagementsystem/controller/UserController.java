@@ -27,7 +27,6 @@ public class UserController {
         JSONObject jsonObject = JSONUtil.parseObj(json);
         String id = jsonObject.getStr("id");
         String password = jsonObject.getStr("password");
-
         if(level == 1) {
             log.info("学生登录");
             Student student = studentService.getStudentInfo(id);

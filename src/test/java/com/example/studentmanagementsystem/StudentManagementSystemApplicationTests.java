@@ -14,7 +14,8 @@ class StudentManagementSystemApplicationTests {
 
     @Test
     void contextLoads() {
-        System.out.println(studentService.getStudentInfo("1"));
+        String s = JwtUtils.generateToken("1", 1);
+        System.out.println(JwtUtils.getClaims(s));
     }
 
 }

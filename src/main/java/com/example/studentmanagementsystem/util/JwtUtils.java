@@ -1,6 +1,7 @@
 package com.example.studentmanagementsystem.util;
 
 import io.jsonwebtoken.*;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -27,11 +28,17 @@ public class JwtUtils {
         System.out.println(secret);
     }
     private static String secret;
+    @Value("${jwt.tokenHeader}")
     public void setTokenHeader(String tokenHeader) {
         JwtUtils.tokenHeader = tokenHeader;
     }
-    @Value("${jwt.tokenHeader}")
     private static String tokenHeader;
+
+    @Value("${jwt.tokenHead}")
+    public void setTokenHead(String tokenHead) {
+        JwtUtils.tokenHead = tokenHead;
+    }
+    private static String tokenHead;
 
     // 生成JWT
     public static String generateToken(String id,int level) {
@@ -40,8 +47,7 @@ public class JwtUtils {
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("id", id);
         claims.put("level", level);
-        System.out.println(secret);
-        return Jwts.builder()
+        return tokenHead+Jwts.builder()
                 .setClaims(claims)
                 .setHeaderParam("type", "JWT")
                 .setSubject(id)
@@ -52,8 +58,9 @@ public class JwtUtils {
     }
 
     // 解析JWT
-    public static Claims getClaimsByToken(String jwt) {
+    public static Claims getClaims(String jwt) {
         try {
+            jwt = jwt.substring(7);
             return Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(jwt)
@@ -63,9 +70,28 @@ public class JwtUtils {
         }
     }
 
+    public static Boolean isVerify(String token) {
+
+        //签名秘钥，和生成的签名的秘钥一模一样
+//        String key = user.getPassword();
+        //Jwts.parser在执行parseClaimsJws(token)时如果token时间过期会抛出ExpiredJwtException异常
+        try {
+            //得到DefaultJwtParser
+            Claims claims = getClaims(token);
+            return true;
+        }catch (ExpiredJwtException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static Claims getClaims(HttpServletRequest request){
+        String token = request.getHeader(tokenHeader);
+        return JwtUtils.getClaims(token);
+    }
 
     // 判断JWT是否过期
-    public  boolean isTokenExpired(Claims claims) {
+    public static boolean isTokenExpired(Claims claims) {
         return claims.getExpiration().before(new Date());
     }
 
