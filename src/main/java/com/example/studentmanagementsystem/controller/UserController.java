@@ -2,6 +2,8 @@ package com.example.studentmanagementsystem.controller;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.example.studentmanagementsystem.common.ErrorEnum;
+import com.example.studentmanagementsystem.component.DefinitionException;
 import com.example.studentmanagementsystem.dto.LoginDTO;
 import com.example.studentmanagementsystem.pojo.Student;
 import com.example.studentmanagementsystem.service.impl.StudentServiceImpl;
@@ -36,8 +38,7 @@ public class UserController {
                 LoginDTO loginDTO = new LoginDTO(token, student.getName());
                 return loginDTO;
             }else {
-                //todo 登录失败操作，这里只是演示，应该要抛出一个自定义的错误，然后有个全局错误的配置会处理，但是还没写
-                return null;
+                throw new DefinitionException(ErrorEnum.NO_AUTH);
             }
         }else if(level == 2){
             log.info("教师登录");
