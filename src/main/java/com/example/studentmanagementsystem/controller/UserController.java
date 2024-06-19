@@ -38,6 +38,7 @@ public class UserController {
                 LoginDTO loginDTO = new LoginDTO(token, student.getName());
                 return loginDTO;
             }else {
+                //密码或账号错误，抛出异常
                 throw new DefinitionException(ErrorEnum.NO_AUTH);
             }
         }else if(level == 2){
