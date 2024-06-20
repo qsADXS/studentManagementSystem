@@ -17,4 +17,18 @@ public class StudentServerImpl implements StudentService {
         Student student = studentMapper.selectStudentInfo(id);
         return student;
     }
+    @Override
+    public Integer addCourse(Long studentId, Long id) {
+        return studentMapper.addCourse(studentId, id);
+    }
+
+    @Override
+    public Integer delCourse(Long studentId, Long id) {
+        return studentMapper.delCourse(studentId, id);
+    }
+
+    @Override
+    public Integer getCourseGrade(Long studentId, Long id) {
+        return studentMapper.getCourseGrade(studentId, id);
+    }
 }

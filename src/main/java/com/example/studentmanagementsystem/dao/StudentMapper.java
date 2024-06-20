@@ -3,10 +3,7 @@ package com.example.studentmanagementsystem.dao;
 
 import com.example.studentmanagementsystem.pojo.Admin;
 import com.example.studentmanagementsystem.pojo.Student;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import org.springframework.transaction.annotation.Transactional;
 
 @Mapper
@@ -18,5 +15,11 @@ public interface StudentMapper {
     @Transactional
     @Insert("INSERT INTO `student_info` (`name`, `sex`, `age`, `phone`) VALUES (#{name},#{sex},#{age},#{phone})")
     void insertStudent(Student student);
-
+    @Insert("INSERT INTO choose_course (course_id,student_id) values ( #{id},#{studentId} ) ")
+    Integer addCourse(Long studentId, Long id);
+    @Delete("DELETE FROM choose_course WHERE student_id = #{studentId} AND course_id = #{id}")
+    Integer delCourse(@Param("studentId") Long studentId, @Param("id") Long courseId);
+    @Select("select grade from choose_course WHERE student_id = #{studentId} AND course_id = #{id}")
+    Integer getCourseGrade(@Param("studentId") Long studentId, @Param("id") Long courseId);
 }
+
