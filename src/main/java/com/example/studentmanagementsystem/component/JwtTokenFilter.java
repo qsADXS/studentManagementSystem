@@ -1,6 +1,7 @@
 package com.example.studentmanagementsystem.component;
 
 
+import com.example.studentmanagementsystem.common.ErrorEnum;
 import com.example.studentmanagementsystem.util.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -48,7 +49,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         //验证是否正确
         if(token == null||!JwtUtils.isVerify(token)){
             //todo token错误
-            return;
+            throw new DefinitionException(ErrorEnum.NO_AUTH);
         }
         log.info("通过");
         filterChain.doFilter(request, response);

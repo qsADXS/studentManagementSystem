@@ -29,4 +29,4 @@ jwt:
   tokenHead: 'Bearer '
 
 allow-url:
-  /user/login/**
+  /user/login/**,/college/**,/major/**

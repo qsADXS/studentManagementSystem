@@ -1,17 +1,14 @@
 package com.example.studentmanagementsystem.pojo;
 
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
-//专业
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Major {
+@AllArgsConstructor
+public class College {
     Integer id;
     String name;
-    Integer college_id;
 }

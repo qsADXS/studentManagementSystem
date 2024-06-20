@@ -2,12 +2,12 @@ package com.example.studentmanagementsystem.service.impl;
 
 import com.example.studentmanagementsystem.dao.AdminMapper;
 import com.example.studentmanagementsystem.pojo.Admin;
-import com.example.studentmanagementsystem.service.inter.AdminService;
+import com.example.studentmanagementsystem.service.inter.AdminServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminServerImpl implements AdminService {
+public class AdminServerImpl implements AdminServer {
     @Autowired
     AdminMapper adminMapper;
     @Override
