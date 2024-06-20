@@ -7,11 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServerImpl implements AdminService {
     @Autowired
     AdminMapper adminMapper;
     @Override
     public Admin getAdminInfo(String id) {
         return adminMapper.selectStudentInfo(id);
+    }
+
+    @Override
+    public Integer setAdminPhone(String id, String phone) {
+        return adminMapper.updateAdminPhone(id, phone);
+    }
+
+    @Override
+    public Integer insertAdmin(Admin admin) {
+        adminMapper.insertAdmin(admin);
+        return admin.getId();
     }
 }

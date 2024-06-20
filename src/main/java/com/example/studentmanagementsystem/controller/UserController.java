@@ -7,12 +7,10 @@ import com.example.studentmanagementsystem.component.DefinitionException;
 import com.example.studentmanagementsystem.dto.LoginDTO;
 import com.example.studentmanagementsystem.pojo.Admin;
 import com.example.studentmanagementsystem.pojo.Student;
-import com.example.studentmanagementsystem.service.impl.AdminServiceImpl;
-import com.example.studentmanagementsystem.service.impl.StudentServiceImpl;
+import com.example.studentmanagementsystem.service.impl.AdminServerImpl;
+import com.example.studentmanagementsystem.service.impl.StudentServerImpl;
 import com.example.studentmanagementsystem.util.JwtUtils;
-import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +19,9 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class UserController {
     @Autowired
-    StudentServiceImpl studentService;
+    StudentServerImpl studentService;
     @Autowired
-    AdminServiceImpl adminService;
+    AdminServerImpl adminService;
     //表示一个post请求
     @PostMapping("/login/{level}")//表示这个接口的路径是/user/login/{level}，其中的level是一个参数
     public LoginDTO login(@PathVariable int level,@RequestBody String json){

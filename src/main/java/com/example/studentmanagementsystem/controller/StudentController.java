@@ -2,7 +2,7 @@ package com.example.studentmanagementsystem.controller;
 
 import com.example.studentmanagementsystem.dto.StudentDTO;
 import com.example.studentmanagementsystem.pojo.Student;
-import com.example.studentmanagementsystem.service.impl.StudentServiceImpl;
+import com.example.studentmanagementsystem.service.impl.StudentServerImpl;
 import com.example.studentmanagementsystem.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class StudentController {
     @Autowired
-    StudentServiceImpl studentService;
+    StudentServerImpl studentService;
 
     @GetMapping("/info/{id}")
     public StudentDTO getStudentInfo(@PathVariable String id, HttpServletRequest request){

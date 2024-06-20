@@ -2,10 +2,12 @@ package com.example.studentmanagementsystem.dto;
 
 import com.example.studentmanagementsystem.pojo.Admin;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class AdminDTO {
-    String id;
+    Integer id;
     String name;
     int sex;
     int age;

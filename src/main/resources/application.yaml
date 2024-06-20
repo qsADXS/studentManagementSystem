@@ -10,6 +10,18 @@ spring:
     password: databaseSMS
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+#spring:
+#  datasource:
+#    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+#    url: jdbc:sqlserver://8.146.207.166:1433;DatabaseName=studentmanagementsystem
+#    username: databaseSMS
+#    password: databaseSMS6666
+
+
+
+
+
+
 jwt:
   secret: shuibianshudecouzishudetaiduanleshuibianshudecouzishudetaiduanleshuibianshudecouzishudetaiduanle
   expiration: 300000000000  # 令牌过期时间，单位是毫秒
