@@ -5,7 +5,7 @@ import com.example.studentmanagementsystem.pojo.Teacher;
 
 import java.util.List;
 
-public interface TeacherService {
+public interface TeacherServer {
 
     Teacher getTeacherInfo(String id);
 

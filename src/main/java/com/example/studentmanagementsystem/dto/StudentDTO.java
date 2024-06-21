@@ -15,13 +15,14 @@ public class StudentDTO {
     int major_id;
     int sex;
     int age;
-    //todo 修改
-    String major = "计算机科学与技术";
+    String major;
     public StudentDTO(Student student) {
         this.id = student.getId();
         this.name = student.getName();
         this.major_id = student.getMajor_id();
         this.age = student.getAge();
         this.sex = student.getSex();
+        if (student.getMajor() != null)
+            this.major = student.getMajor();
     }
 }

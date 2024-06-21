@@ -1,5 +1,6 @@
 package com.example.studentmanagementsystem.controller;
 
+import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.example.studentmanagementsystem.common.ErrorEnum;
@@ -10,7 +11,7 @@ import com.example.studentmanagementsystem.pojo.Student;
 import com.example.studentmanagementsystem.pojo.Teacher;
 import com.example.studentmanagementsystem.service.impl.AdminServerImpl;
 import com.example.studentmanagementsystem.service.impl.StudentServerImpl;
-import com.example.studentmanagementsystem.service.impl.TeacherServiceImpl;
+import com.example.studentmanagementsystem.service.impl.TeacherServerImpl;
 import com.example.studentmanagementsystem.util.JwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -27,7 +28,7 @@ public class UserController {
     @Autowired
     AdminServerImpl adminService;
     @Autowired
-    TeacherServiceImpl teacherService;
+    TeacherServerImpl teacherService;
     //表示一个post请求
     @PostMapping("/login/{level}")//表示这个接口的路径是/user/login/{level}，其中的level是一个参数
     public LoginDTO login(@PathVariable int level,@RequestBody String json, HttpServletRequest request){
@@ -43,6 +44,7 @@ public class UserController {
             //参数错误，抛出异常
             throw new DefinitionException(ErrorEnum.ERROR);
         }
+        password = SecureUtil.md5(password);
 
         if(level == 1) {
             log.info("学生登录");
@@ -70,7 +72,7 @@ public class UserController {
             }
         }else if(level == 3){
             log.info("管理员登录");
-            Admin admin = adminService.getAdminInfo(id);
+            Admin admin = adminService.getAdminInfo(Integer.valueOf(id));
 
             if(admin != null && admin.getPassword().equals(password)){
                 name = admin.getName();

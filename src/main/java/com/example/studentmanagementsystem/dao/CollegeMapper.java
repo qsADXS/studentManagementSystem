@@ -16,4 +16,5 @@ public interface CollegeMapper {
 
     @Update("update college_info set name=#{name} where id=#{id}")
     void updateCollegeInfo(College college);
+
 }

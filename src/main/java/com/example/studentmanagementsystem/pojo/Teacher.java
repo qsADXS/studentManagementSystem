@@ -19,7 +19,8 @@ public class Teacher {
     String password;
     int sex;
     int age;
-    final int level = 2;//教师的level为1
+    final int level = 2;//教师的level为2
     String title;//职称
     int college_id;//学院id
+
 }

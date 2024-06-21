@@ -1,38 +1,56 @@
 package com.example.studentmanagementsystem.controller;
 
 import cn.hutool.core.convert.Convert;
+import com.example.studentmanagementsystem.common.ErrorEnum;
+import com.example.studentmanagementsystem.component.DefinitionException;
 import com.example.studentmanagementsystem.dto.StudentDTO;
 import com.example.studentmanagementsystem.pojo.Student;
+
 import com.example.studentmanagementsystem.service.impl.StudentServerImpl;
+import com.example.studentmanagementsystem.service.inter.TeacherServer;
 import com.example.studentmanagementsystem.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
-@RequestMapping("/student")//表示这个controller的所有接口都是以/user开头的
+@RequestMapping("/student")
 @Slf4j
 public class StudentController {
     @Autowired
     StudentServerImpl studentService;
+    @Autowired
+    TeacherServer teacherServer;
 
     @GetMapping("/info/{id}")
     public StudentDTO getStudentInfo(@PathVariable String id, HttpServletRequest request){
         Claims claims = JwtUtils.getClaims(request);
         /*
-        *这里的claims是一个map，里面存放了token中的信息
-        *int level = (int)claims.get("level");
-        *String id = (String)claims.get("id");
-        */
-        //todo 根据权限等级做不同判断
-        log.info("id={}",id);
+         *这里的claims是一个map，里面存放了token中的信息
+         *int level = (int)claims.get("level");
+         *String id = (String)claims.get("id");
+         */
+        int level = (int)claims.get("level");
+        String userId = (String)claims.get("id");
+//        HttpSession session = request.getSession();
+//        String Id = (String) session.getAttribute("Id");
+//        Integer level = (Integer) session.getAttribute("level");
+        if(level == 1){
+            if(!Objects.equals(userId, id)){
+                throw new DefinitionException(ErrorEnum.NO_PERMISSION);
+            }
+        }
         Student student = studentService.getStudentInfo(id);
+        if(student == null){
+            throw new DefinitionException(ErrorEnum.ERROR);
+        }
         return new StudentDTO(student);
     }
 
@@ -45,10 +63,11 @@ public class StudentController {
          *String id = (String)claims.get("id");
          */
         //获取当前登录学生的ID
-        HttpSession session = request.getSession();
-        String studentId = (String) session.getAttribute("Id");
+        String studentId = (String)claims.get("id");
+//        HttpSession session = request.getSession();
+//        String studentId = (String) session.getAttribute("Id");
 
-        Integer i = studentService.addCourse(Convert.toLong(studentId), Convert.toLong(id));
+        studentService.addCourse(Convert.toLong(studentId), Convert.toLong(id));
         Map<String, Object> map = new HashMap<>();
         map.put("message","操作成功");
         return map;
@@ -62,15 +81,16 @@ public class StudentController {
          *String id = (String)claims.get("id");
          */
         //获取当前登录学生的ID
-        HttpSession session = request.getSession();
-        String studentId = (String) session.getAttribute("Id");
+//        HttpSession session = request.getSession();
+//        String studentId = (String) session.getAttribute("Id");
+        String studentId = (String)claims.get("id");
         Integer i = studentService.delCourse(Convert.toLong(studentId), Convert.toLong(id));
         Map<String, Object> map = new HashMap<>();
         map.put("message","操作成功");
         return map;
     }
     @GetMapping("/grade/{id}")
-    public Map<String, Integer> getGrade(@PathVariable Integer id, HttpServletRequest request) {
+    public Map<String, Object> getGrade(@PathVariable Integer id, HttpServletRequest request) {
         Claims claims = JwtUtils.getClaims(request);
         /*
          *这里的claims是一个map，里面存放了token中的信息
@@ -78,13 +98,25 @@ public class StudentController {
          *String id = (String)claims.get("id");
          */
         //获取当前登录学生的ID
-        HttpSession session = request.getSession();
-        String studentId = (String) session.getAttribute("Id");
-        Integer grade= studentService.getCourseGrade(Convert.toLong(studentId), Convert.toLong(id));
-        Map<String, Integer> map = new HashMap<>();
-        map.put("grade",grade);
+        int level = (int)claims.get("level");
+        String Id = (String)claims.get("id");
+//        HttpSession session = request.getSession();
+//        String Id = (String) session.getAttribute("Id");
+//        Integer level = (Integer) session.getAttribute("level");
+        Map<String, Object> map = new HashMap<>();
+        if (level==3){
+            List<Map<String,Object>> maps= studentService.getAllCourseGrade(Convert.toLong(id));
+            map.put("grades",maps);
+        }else if (level==2){
+            List<Long> courseIds = teacherServer.getCourseIds(Id);
+//            List<Map<String,Object>> maps= studentService.getTeacherCourseGrade(courseIds, Convert.toLong(id));
+            List<Map<String,Object>> maps= studentService.getAllCourseGrade(Convert.toLong(id));
+            map.put("grades",maps);
+        }else if (level==1){
+            Integer grade= studentService.getCourseGrade(Convert.toLong(Id), Convert.toLong(id));
+            map.put("grade",grade);
+        }
+
         return map;
     }
-
-
 }

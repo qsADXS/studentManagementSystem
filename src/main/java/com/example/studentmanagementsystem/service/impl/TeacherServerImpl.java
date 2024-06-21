@@ -3,7 +3,7 @@ package com.example.studentmanagementsystem.service.impl;
 import cn.hutool.core.convert.Convert;
 import com.example.studentmanagementsystem.dao.TeacherMapper;
 import com.example.studentmanagementsystem.pojo.Teacher;
-import com.example.studentmanagementsystem.service.inter.TeacherService;
+import com.example.studentmanagementsystem.service.inter.TeacherServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j//这个是日志的注解
 @Service
-public class TeacherServiceImpl implements TeacherService {
+public class TeacherServerImpl implements TeacherServer {
     @Autowired//这个是springboot的注解，表示自动注入，反正用的时候把这两行复制就行
     TeacherMapper teacherMapper;
 

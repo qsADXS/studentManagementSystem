@@ -3,7 +3,10 @@ package com.example.studentmanagementsystem.service.inter;
 
 import com.example.studentmanagementsystem.pojo.Student;
 
-public interface StudentService {
+import java.util.List;
+import java.util.Map;
+
+public interface StudentServer {
     Student getStudentInfo(String id);
     Integer addCourse(Long aLong, Long aLong1);
 
@@ -11,6 +14,10 @@ public interface StudentService {
 
     Integer getCourseGrade(Long aLong, Long aLong1);
 
+    List<Map<String, Object>> getAllCourseGrade(Long aLong);
 
+    List<Map<String, Object>> getTeacherCourseGrade(List<Long> courseIds, Long aLong);
+
+    List<Student> getAllStudentInfo();
 
 }

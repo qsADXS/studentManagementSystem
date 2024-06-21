@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-//上面是lombok的注解，用于自动生成getter、setter、toString等方法
 /*
     * 学生实体类
     * 用于存储学生信息
@@ -21,4 +20,5 @@ public class Student {
     int major_id;//专业id
     int sex;
     int age;
+    String major;//专业名
 }

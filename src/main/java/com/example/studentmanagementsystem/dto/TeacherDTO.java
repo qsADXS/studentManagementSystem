@@ -16,5 +16,5 @@ public class TeacherDTO {
     int sex;
     int age;
     String title ;
-
+    String collegeName;
 }
