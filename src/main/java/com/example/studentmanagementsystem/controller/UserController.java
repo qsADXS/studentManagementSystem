@@ -1,5 +1,6 @@
 package com.example.studentmanagementsystem.controller;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
@@ -13,11 +14,15 @@ import com.example.studentmanagementsystem.service.impl.AdminServerImpl;
 import com.example.studentmanagementsystem.service.impl.StudentServerImpl;
 import com.example.studentmanagementsystem.service.impl.TeacherServerImpl;
 import com.example.studentmanagementsystem.util.JwtUtils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")//表示这个controller的所有接口都是以/user开头的
@@ -89,5 +94,31 @@ public class UserController {
         log.info("登录成功");
         String token = JwtUtils.generateToken(id, level);
         return new LoginDTO(token, name);
+    }
+
+
+    @PutMapping("/password")
+    public Object password(@RequestBody Map<String,Object> json, HttpServletRequest request){
+        Claims claims = JwtUtils.getClaims(request);
+        int level = (int)claims.get("level");
+        Integer id = Convert.toInt(claims.get("id")) ;
+
+        String password = json.get("password").toString();
+        String newPassword = json.get("newPassword").toString();
+        if(newPassword == null || newPassword.equals("")){
+            throw new DefinitionException(ErrorEnum.ERROR);
+        }
+        // 密码修改逻辑
+        if (level==1){
+            studentService.updatePassword(id, password,newPassword);
+        }else if (level==2){
+            teacherService.updatePassword(id, password,newPassword);
+        }else if (level==3){
+            adminService.updatePassword(id, password,newPassword);
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("message", "操作成功");
+        return map;
     }
 }

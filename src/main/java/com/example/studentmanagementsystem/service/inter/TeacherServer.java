@@ -12,4 +12,5 @@ public interface TeacherServer {
     Integer setGrade(String teacherId, String crouseId, String studentId, Integer grade);
 
     List<Long> getCourseIds(String teacherId);
+    void updatePassword(Integer id, String password, String newPassword);
 }

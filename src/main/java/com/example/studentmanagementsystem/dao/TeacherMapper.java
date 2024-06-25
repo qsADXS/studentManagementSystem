@@ -16,4 +16,7 @@ public interface TeacherMapper {
 
     @Select("SELECT id FROM course_info WHERE teacher_id = #{teacherId}")
     List<Long> getCourseIds(Integer teacherId);
+
+    @Update("UPDATE teacher_info SET password = #{newPassword} WHERE id = #{id} AND password = #{password}")
+    void updatePassword(@Param("id") Integer id,@Param("password") String password,@Param("newPassword") String newPassword);
 }

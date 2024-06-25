@@ -22,5 +22,6 @@ public interface AdminServer {
     Integer updateTeacherTitle(Teacher teacher);
     List<StudentDTO> getStudentList(Integer page, Integer limit);
     List<TeacherDTO> getTeacherList(Integer page, Integer limit);
+    void updatePassword(Integer id, String password, String newPassword);
 
 }

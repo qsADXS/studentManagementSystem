@@ -3,6 +3,7 @@ package com.example.studentmanagementsystem.controller;
 import cn.hutool.core.convert.Convert;
 import com.example.studentmanagementsystem.common.ErrorEnum;
 import com.example.studentmanagementsystem.component.DefinitionException;
+import com.example.studentmanagementsystem.dto.CourseDTO;
 import com.example.studentmanagementsystem.dto.StudentDTO;
 import com.example.studentmanagementsystem.pojo.Student;
 
@@ -119,4 +120,21 @@ public class StudentController {
 
         return map;
     }
+
+    @GetMapping("/course/{id}")
+    public Map<String,List<CourseDTO>> getAllStudentInfo(@PathVariable Integer id,HttpServletRequest request){
+        Claims claims = JwtUtils.getClaims(request);
+        int level = (int)claims.get("level");
+        if(level == 1){
+            Integer userId = (Integer)claims.get("id");
+            if(!Objects.equals(userId, id)){
+                throw new DefinitionException(ErrorEnum.NO_PERMISSION);
+            }
+        }
+        studentService.getAllCourse(id);
+        return Map.of("data",studentService.getAllCourse(id));
+    }
+
+
+
 }

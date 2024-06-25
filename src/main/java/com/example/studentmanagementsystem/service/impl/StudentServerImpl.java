@@ -1,8 +1,11 @@
 package com.example.studentmanagementsystem.service.impl;
 
+import cn.hutool.crypto.SecureUtil;
 import com.example.studentmanagementsystem.common.ErrorEnum;
 import com.example.studentmanagementsystem.component.DefinitionException;
+import com.example.studentmanagementsystem.dao.CourseMapper;
 import com.example.studentmanagementsystem.dao.StudentMapper;
+import com.example.studentmanagementsystem.dto.CourseDTO;
 import com.example.studentmanagementsystem.pojo.Student;
 import com.example.studentmanagementsystem.service.inter.StudentServer;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +22,8 @@ public class StudentServerImpl implements StudentServer {
     StudentMapper studentMapper;
     @Autowired
     MajorServerImpl majorServer;
+    @Autowired
+    CourseMapper courseMapper;
     @Override
     public Student getStudentInfo(String id) {
         Student student = studentMapper.selectStudentInfo(id);
@@ -57,5 +62,16 @@ public class StudentServerImpl implements StudentServer {
     @Override
     public List<Student> getAllStudentInfo() {
         return studentMapper.getAllStudentInfo();
+    }
+
+    @Override
+    public void updatePassword(Integer id, String password, String newPassword) {
+        newPassword = SecureUtil.md5(newPassword);
+        studentMapper.updatePassword(id,password,newPassword);
+    }
+
+    @Override
+    public List<CourseDTO> getAllCourse(Integer id) {
+        return courseMapper.selectCourseInfo(id);
     }
 }

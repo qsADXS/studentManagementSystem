@@ -1,6 +1,7 @@
 package com.example.studentmanagementsystem.service.impl;
 
 import cn.hutool.core.convert.Convert;
+import cn.hutool.crypto.SecureUtil;
 import com.example.studentmanagementsystem.dao.TeacherMapper;
 import com.example.studentmanagementsystem.pojo.Teacher;
 import com.example.studentmanagementsystem.service.inter.TeacherServer;
@@ -30,4 +31,11 @@ public class TeacherServerImpl implements TeacherServer {
     public List<Long> getCourseIds(String teacherId) {
         return teacherMapper.getCourseIds(Convert.toInt(teacherId) );
     }
+
+    @Override
+    public void updatePassword(Integer id, String password, String newPassword) {
+        newPassword = SecureUtil.md5(newPassword);
+        teacherMapper.updatePassword(id, password, newPassword);
+    }
+
 }

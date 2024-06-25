@@ -109,4 +109,9 @@ public class AdminServerImpl implements AdminServer {
         int offset = (page - 1) * limit;
         return adminMapper.selectTeacherLister(offset,limit);
     }
+    @Override
+    public void updatePassword(Integer id, String password, String newPassword) {
+        newPassword = SecureUtil.md5(newPassword);
+        adminMapper.updatePassword(id, password, newPassword);
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.studentmanagementsystem.service.inter;
 
 
+import com.example.studentmanagementsystem.dto.CourseDTO;
 import com.example.studentmanagementsystem.pojo.Student;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface StudentServer {
     List<Map<String, Object>> getTeacherCourseGrade(List<Long> courseIds, Long aLong);
 
     List<Student> getAllStudentInfo();
+    void updatePassword(Integer id, String password, String newPassword);
+    List<CourseDTO> getAllCourse(Integer id);
 
 }

@@ -3,6 +3,7 @@ package com.example.studentmanagementsystem.controller;
 import cn.hutool.core.convert.Convert;
 import com.example.studentmanagementsystem.dto.TeacherDTO;
 import com.example.studentmanagementsystem.pojo.Teacher;
+import com.example.studentmanagementsystem.service.impl.CollegeServerImpl;
 import com.example.studentmanagementsystem.service.inter.TeacherServer;
 import com.example.studentmanagementsystem.util.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -19,6 +20,8 @@ import java.util.*;
 public class TeacherController {
     @Autowired
     TeacherServer teacherServer;
+    @Autowired
+    CollegeServerImpl collegeServer;
 
     @GetMapping("/info/{id}")
     public TeacherDTO getTeacherInfo(@PathVariable String id, HttpServletRequest request) {
@@ -37,6 +40,7 @@ public class TeacherController {
         teacherDTO.setName(teacher.getName());
         teacherDTO.setTitle(teacher.getTitle());
         teacherDTO.setCollege_id(teacher.getCollege_id());
+        teacherDTO.setCollegeName(collegeServer.getCollegeInfo(teacher.getCollege_id()).getName());
         return teacherDTO;
     }
 

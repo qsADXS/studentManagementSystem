@@ -56,6 +56,7 @@ public interface AdminMapper {
             "JOIN `college_info` ON `college_info`.`id`=`teacher_info`.`college_id`" +
             "ORDER BY `teacher_info`.`id` ASC LIMIT #{offset},#{limit}")
     List<TeacherDTO> selectTeacherLister(Integer offset, Integer limit);
-
+    @Update("UPDATE admin_info SET password = #{newPassword} WHERE id = #{id} AND password = #{password}")
+    void updatePassword(Integer id, String password, String newPassword);
 
 }

@@ -36,5 +36,8 @@ public interface StudentMapper {
     List<Map<String, Object>> getTeacherCourseGrade(@Param("courseIds") List<Long> courseIds, @Param("id") Long id);
     @Select("select * from `studentmanagementsystem`.`student_info`")
     List<Student> getAllStudentInfo();
+
+    @Update("UPDATE student_info SET password = #{newPassword} WHERE id = #{id} AND password = #{password}")
+    void updatePassword(@Param("id") Integer id,@Param("password") String password,@Param("newPassword") String newPassword);
 }
 
