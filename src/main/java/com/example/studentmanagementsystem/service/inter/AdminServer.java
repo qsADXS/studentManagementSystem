@@ -25,4 +25,10 @@ public interface AdminServer {
     void updatePassword(Integer id, String password, String newPassword);
     void updateInfo(Admin admin);
 
+    Integer getMax(Integer id);
+    Integer getMin(Integer id);
+    double getAvg(Integer id);
+    Integer scoreNum(Integer highScore, Integer lowScore, Integer courseId);
+
+
 }

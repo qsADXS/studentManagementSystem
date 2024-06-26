@@ -37,6 +37,11 @@ public class StudentServerImpl implements StudentServer {
     public Integer addCourse(Long studentId, Long id) {
         Integer count = courseMapper.selectCourseCount(Math.toIntExact(id));
         Integer maxCount = courseMapper.selectMaxCount(Math.toIntExact(id));
+        log.info("count:{}",count);
+        log.info("maxCount:{}",maxCount);
+        if(count >= maxCount){
+            throw new DefinitionException(ErrorEnum.ERROR);
+        }
         return studentMapper.addCourse(studentId, id);
     }
 
@@ -80,5 +85,24 @@ public class StudentServerImpl implements StudentServer {
     @Override
     public void updateInfo(Student student) {
         studentMapper.updateStudentInfo(student);
+    }
+
+    @Override
+    public Integer getMax(Integer id) {
+        return courseMapper.maxGrade(id);
+    }
+
+    @Override
+    public Integer getMin(Integer id) {
+        return courseMapper.minGrade(id);
+    }
+
+    @Override
+    public double getAvg(Integer id) {
+        try{
+            return courseMapper.avgGrade(id);
+        }catch (Exception e){
+            return 0;
+        }
     }
 }

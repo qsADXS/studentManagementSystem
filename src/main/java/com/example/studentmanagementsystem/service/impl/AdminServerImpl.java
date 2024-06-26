@@ -119,4 +119,35 @@ public class AdminServerImpl implements AdminServer {
     public void updateInfo(Admin admin) {
         adminMapper.updateAdminInfo(admin);
     }
+
+    @Override
+    public Integer getMax(Integer id) {
+        try{
+            return courseMapper.maxCourseGrade(id);
+        }catch (Exception e){
+            return 0;
+        }
+    }
+
+    @Override
+    public Integer getMin(Integer id) {
+        try{
+            return courseMapper.minCourseGrade(id);
+        }catch (Exception e){
+            return 0;
+        }
+    }
+
+    @Override
+    public double getAvg(Integer id) {
+        try{
+            return courseMapper.avgCourseGrade(id);
+        }catch (Exception e){
+            return 0;
+        }
+    }
+    @Override
+    public Integer scoreNum(Integer highScore, Integer lowScore, Integer courseId) {
+        return adminMapper.scoreNum(highScore, lowScore, courseId);
+    }
 }

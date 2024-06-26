@@ -24,4 +24,8 @@ public interface StudentServer {
     List<CourseDTO> getAllCourse(Integer id);
     void updateInfo(Student student);
 
+    Integer getMax(Integer id);
+    Integer getMin(Integer id);
+    double getAvg(Integer id);
+
 }

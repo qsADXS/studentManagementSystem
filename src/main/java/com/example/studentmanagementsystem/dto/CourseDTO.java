@@ -12,5 +12,4 @@ public class CourseDTO {
     Integer id;
     Integer grade;
     String name;
-    Integer count;
 }

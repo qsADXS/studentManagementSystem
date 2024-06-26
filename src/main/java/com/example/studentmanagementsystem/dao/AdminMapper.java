@@ -72,5 +72,7 @@ public interface AdminMapper {
             "</script>"
     })
     void updateAdminInfo(Admin admin);
+    @Select("SELECT COUNT(*) AS course_count FROM choose_course WHERE course_id=#{courseId} and ( grade BETWEEN #{lowScore} AND #{highScore} ) ;")
+    Integer scoreNum(@Param("highScore") Integer highScore,@Param("lowScore") Integer lowScore,@Param("courseId") Integer courseId);
 
 }

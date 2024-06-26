@@ -122,7 +122,7 @@ public class StudentController {
     }
 
     @GetMapping("/course/{id}")
-    public Map<String,List<CourseDTO>> getAllStudentInfo(@PathVariable Integer id,HttpServletRequest request){
+    public Map<String,Object> getAllStudentInfo(@PathVariable Integer id,HttpServletRequest request){
         Claims claims = JwtUtils.getClaims(request);
         int level = (int)claims.get("level");
         if(level == 1){
@@ -133,8 +133,8 @@ public class StudentController {
             }
         }
 
-        studentService.getAllCourse(id);
-        return Map.of("data",studentService.getAllCourse(id));
+
+        return Map.of("data",studentService.getAllCourse(id),"max",studentService.getMax(id),"min",studentService.getMin(id),"average",studentService.getAvg(id));
     }
 
 

@@ -25,19 +25,34 @@ public interface CourseMapper {
     @Delete("DELETE FROM `choose_course` WHERE `course_id` = #{course_id}")
     Integer deleteChooseCourse(Integer course_id);
 
-    @Select("SELECT `choose_course`.`grade`,`college_info`.`name`,`college_info`.`id`" +
+    @Select("SELECT `choose_course`.`grade`,`course_info`.`name`,`course_info`.`id`" +
             "FROM `choose_course`" +
-            "JOIN `college_info` ON" +
-            "`college_info`.`id` = `choose_course`.`course_id`" +
+            "JOIN `course_info` ON" +
+            "`course_info`.`id` = `choose_course`.`course_id`" +
             "WHERE `choose_course`.`student_id` = #{id};")
     List<CourseDTO> selectCourseInfo(Integer id);
 
-    @Select("select count(*) from `choose_course` where course_id = 1")
+    @Select("select count(*) from `choose_course` where course_id = #{id}")
     Integer selectCourseCount(Integer id);
 
     @Select("select max_count from `course_info` where id = #{id}")
     Integer selectMaxCount(Integer id);
 
+    @Select("SELECT MIN(grade) FROM `choose_course` WHERE student_id = #{id} AND grade IS NOT NULL;")
+    Integer minGrade(Integer id);
+    @Select("SELECT MAX(grade) FROM `choose_course` WHERE student_id = #{id} AND grade IS NOT NULL;")
+    Integer maxGrade(Integer id);
+
+    @Select("SELECT avg(grade) FROM `choose_course` WHERE student_id = #{id} AND grade IS NOT NULL;")
+    double avgGrade(Integer id);
+
+    @Select("SELECT MIN(grade) FROM `choose_course` WHERE course_id = #{id} AND grade IS NOT NULL;")
+    Integer minCourseGrade(Integer id);
+    @Select("SELECT MAX(grade) FROM `choose_course` WHERE course_id = #{id} AND grade IS NOT NULL;")
+    Integer maxCourseGrade(Integer id);
+
+    @Select("SELECT avg(grade) FROM `choose_course` WHERE course_id = #{id} AND grade IS NOT NULL;")
+    double avgCourseGrade(Integer id);
 
 
 }

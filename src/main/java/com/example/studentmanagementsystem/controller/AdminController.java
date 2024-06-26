@@ -1,5 +1,6 @@
 package com.example.studentmanagementsystem.controller;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.json.JSONUtil;
 import com.example.studentmanagementsystem.common.ErrorEnum;
 import com.example.studentmanagementsystem.component.DefinitionException;
@@ -11,6 +12,7 @@ import com.example.studentmanagementsystem.service.impl.MajorServerImpl;
 import com.example.studentmanagementsystem.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.websocket.server.PathParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -185,6 +187,25 @@ public class AdminController {
             log.error("权限不足");
             throw new DefinitionException(ErrorEnum.NO_PERMISSION);
         }
+    }
+    @GetMapping("/course/{id}")
+    private Map<String,Object> getCourseMAXMINAVG(@PathVariable Integer id){
+        return Map.of("max",adminService.getMax(id),"min",adminService.getMin(id),"avg",adminService.getAvg(id));
+    }
+    /**
+     * 某一分数段人数统计
+     * @param data
+     * @param request
+     * @return
+     */
+    @PostMapping("/scoreNum")
+    public Map<String,Integer> scoreNum(@RequestBody Map<String, Object> data, HttpServletRequest request){
+        verifyPermissions(request);
+        Integer highScore = Convert.toInt(data.get("highScore"));
+        Integer lowScore = Convert.toInt(data.get("lowScore"));
+        Integer courseId = Convert.toInt(data.get("courseId"));
+        Integer number = adminService.scoreNum(highScore, lowScore, courseId);
+        return Map.of("number",number);
     }
 
 
