@@ -144,7 +144,7 @@ public class AdminController {
     public void updateTeacherTitle(@RequestBody String json, @PathVariable Integer id, HttpServletRequest request){
         verifyPermissions(request);
         Teacher teacher = JSONUtil.toBean(json, Teacher.class, true);
-        teacher.setId(String.valueOf(id));
+        teacher.setId(id);
         Integer result = adminService.updateTeacherTitle(teacher);
         if(result == 0){
             log.error("修改失败");

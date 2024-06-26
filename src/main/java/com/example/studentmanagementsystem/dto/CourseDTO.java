@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CourseDTO {
+    Integer id;
     Integer grade;
     String name;
+    Integer count;
 }

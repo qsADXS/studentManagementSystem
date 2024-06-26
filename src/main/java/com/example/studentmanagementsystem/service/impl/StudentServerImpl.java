@@ -35,6 +35,8 @@ public class StudentServerImpl implements StudentServer {
     }
     @Override
     public Integer addCourse(Long studentId, Long id) {
+        Integer count = courseMapper.selectCourseCount(Math.toIntExact(id));
+        Integer maxCount = courseMapper.selectMaxCount(Math.toIntExact(id));
         return studentMapper.addCourse(studentId, id);
     }
 
@@ -73,5 +75,10 @@ public class StudentServerImpl implements StudentServer {
     @Override
     public List<CourseDTO> getAllCourse(Integer id) {
         return courseMapper.selectCourseInfo(id);
+    }
+
+    @Override
+    public void updateInfo(Student student) {
+        studentMapper.updateStudentInfo(student);
     }
 }

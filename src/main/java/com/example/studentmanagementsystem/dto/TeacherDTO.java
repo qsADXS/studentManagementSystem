@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 //传递给前端的消息
 public class TeacherDTO {
-    String id;
+    Integer id;
     String name;
-    int college_id;
-    int sex;
-    int age;
+    Integer college_id;
+    Integer sex;
+    Integer age;
     String title ;
     String collegeName;
 }

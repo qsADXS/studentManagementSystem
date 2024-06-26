@@ -114,4 +114,9 @@ public class AdminServerImpl implements AdminServer {
         newPassword = SecureUtil.md5(newPassword);
         adminMapper.updatePassword(id, password, newPassword);
     }
+
+    @Override
+    public void updateInfo(Admin admin) {
+        adminMapper.updateAdminInfo(admin);
+    }
 }

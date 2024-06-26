@@ -19,4 +19,20 @@ public interface TeacherMapper {
 
     @Update("UPDATE teacher_info SET password = #{newPassword} WHERE id = #{id} AND password = #{password}")
     void updatePassword(@Param("id") Integer id,@Param("password") String password,@Param("newPassword") String newPassword);
+
+    @Update({
+            "<script>",
+            "UPDATE teacher_info",
+            "<set>",
+            "<if test='name != null'> name = #{name}, </if>",
+            "<if test='sex != null'> sex = #{sex}, </if>",
+            "<if test='age != null'> age = #{age}, </if>",
+            "<if test='title != null'> title = #{title}, </if>",
+            "<if test='college_id != null'> college_id = #{college_id}, </if>",
+            "</set>",
+            "WHERE id = #{id}",
+            "</script>"
+    })
+    void updateTeacherInfo(Teacher teacher);
+
 }

@@ -12,4 +12,6 @@ public class Course {
     String name;
     Integer credit;
     Integer teacher_id;
+    Integer count;
+    Integer max_count;
 }

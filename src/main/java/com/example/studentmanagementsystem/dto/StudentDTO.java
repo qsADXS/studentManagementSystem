@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 //传递给前端的消息
 public class StudentDTO {
-    String id;
+    Integer id;
     String name;
-    int major_id;
-    int sex;
-    int age;
+    Integer major_id;
+    Integer sex;
+    Integer age;
     String major;
     public StudentDTO(Student student) {
         this.id = student.getId();

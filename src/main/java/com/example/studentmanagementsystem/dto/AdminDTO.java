@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 public class AdminDTO {
     Integer id;
     String name;
-    int sex;
-    int age;
+    Integer sex;
+    Integer age;
     String phone;
 
     public AdminDTO(Admin admin){

@@ -39,5 +39,20 @@ public interface StudentMapper {
 
     @Update("UPDATE student_info SET password = #{newPassword} WHERE id = #{id} AND password = #{password}")
     void updatePassword(@Param("id") Integer id,@Param("password") String password,@Param("newPassword") String newPassword);
+
+    @Update({
+            "<script>",
+            "UPDATE student_info",
+            "<set>",
+            "<if test='name != null'> name = #{name}, </if>",
+            "<if test='sex != null'> sex = #{sex}, </if>",
+            "<if test='age != null'> age = #{age}, </if>",
+            "<if test='major_id != null'> major_id = #{major_id}, </if>",
+            "</set>",
+            "WHERE id = #{id}",
+            "</script>"
+    })
+    void updateStudentInfo(Student student);
+
 }
 

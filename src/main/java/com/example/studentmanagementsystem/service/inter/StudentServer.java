@@ -22,5 +22,6 @@ public interface StudentServer {
     List<Student> getAllStudentInfo();
     void updatePassword(Integer id, String password, String newPassword);
     List<CourseDTO> getAllCourse(Integer id);
+    void updateInfo(Student student);
 
 }

@@ -23,5 +23,6 @@ public interface AdminServer {
     List<StudentDTO> getStudentList(Integer page, Integer limit);
     List<TeacherDTO> getTeacherList(Integer page, Integer limit);
     void updatePassword(Integer id, String password, String newPassword);
+    void updateInfo(Admin admin);
 
 }

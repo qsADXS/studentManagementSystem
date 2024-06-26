@@ -126,11 +126,13 @@ public class StudentController {
         Claims claims = JwtUtils.getClaims(request);
         int level = (int)claims.get("level");
         if(level == 1){
-            Integer userId = (Integer)claims.get("id");
-            if(!Objects.equals(userId, id)){
+            String userId = (String)claims.get("id");
+            log.info("userId:{}",userId);
+            if(!Objects.equals(Integer.valueOf(userId), id)){
                 throw new DefinitionException(ErrorEnum.NO_PERMISSION);
             }
         }
+
         studentService.getAllCourse(id);
         return Map.of("data",studentService.getAllCourse(id));
     }

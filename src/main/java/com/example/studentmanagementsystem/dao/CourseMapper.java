@@ -25,21 +25,18 @@ public interface CourseMapper {
     @Delete("DELETE FROM `choose_course` WHERE `course_id` = #{course_id}")
     Integer deleteChooseCourse(Integer course_id);
 
-    @Select("SELECT `choose_course`.`grade`,`college_info`.`name`" +
+    @Select("SELECT `choose_course`.`grade`,`college_info`.`name`,`college_info`.`id`" +
             "FROM `choose_course`" +
             "JOIN `college_info` ON" +
             "`college_info`.`id` = `choose_course`.`course_id`" +
             "WHERE `choose_course`.`student_id` = #{id};")
     List<CourseDTO> selectCourseInfo(Integer id);
 
+    @Select("select count(*) from `choose_course` where course_id = 1")
+    Integer selectCourseCount(Integer id);
 
-
-
-
-
-
-
-
+    @Select("select max_count from `course_info` where id = #{id}")
+    Integer selectMaxCount(Integer id);
 
 
 

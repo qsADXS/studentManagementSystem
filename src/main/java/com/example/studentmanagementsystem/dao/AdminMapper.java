@@ -59,4 +59,18 @@ public interface AdminMapper {
     @Update("UPDATE admin_info SET password = #{newPassword} WHERE id = #{id} AND password = #{password}")
     void updatePassword(Integer id, String password, String newPassword);
 
+    @Update({
+            "<script>",
+            "UPDATE admin_info",
+            "<set>",
+            "<if test='name != null'> name = #{name}, </if>",
+            "<if test='sex != null'> sex = #{sex}, </if>",
+            "<if test='age != null'> age = #{age}, </if>",
+            "<if test='phone != null'> phone = #{phone}, </if>",
+            "</set>",
+            "WHERE id = #{id}",
+            "</script>"
+    })
+    void updateAdminInfo(Admin admin);
+
 }

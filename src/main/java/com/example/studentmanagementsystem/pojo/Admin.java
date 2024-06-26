@@ -12,8 +12,8 @@ public class Admin {
     Integer id;
     String name;
     String password;
-    int sex;
-    int age;
+    Integer sex;
+    Integer age;
     String phone;
     final int level = 3;
     public Admin(AdminDTO adminDTO){

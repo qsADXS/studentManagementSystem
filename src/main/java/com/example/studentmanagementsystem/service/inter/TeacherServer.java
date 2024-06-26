@@ -13,4 +13,5 @@ public interface TeacherServer {
 
     List<Long> getCourseIds(String teacherId);
     void updatePassword(Integer id, String password, String newPassword);
+    void updateInfo(Teacher teacher);
 }

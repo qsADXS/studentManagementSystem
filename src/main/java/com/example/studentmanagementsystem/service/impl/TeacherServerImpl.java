@@ -38,4 +38,9 @@ public class TeacherServerImpl implements TeacherServer {
         teacherMapper.updatePassword(id, password, newPassword);
     }
 
+    @Override
+    public void updateInfo(Teacher teacher) {
+        teacherMapper.updateTeacherInfo(teacher);
+    }
+
 }

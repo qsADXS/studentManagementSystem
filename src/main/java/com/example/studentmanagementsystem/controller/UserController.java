@@ -8,6 +8,7 @@ import com.example.studentmanagementsystem.common.ErrorEnum;
 import com.example.studentmanagementsystem.component.DefinitionException;
 import com.example.studentmanagementsystem.dto.LoginDTO;
 import com.example.studentmanagementsystem.pojo.Admin;
+import com.example.studentmanagementsystem.pojo.Major;
 import com.example.studentmanagementsystem.pojo.Student;
 import com.example.studentmanagementsystem.pojo.Teacher;
 import com.example.studentmanagementsystem.service.impl.AdminServerImpl;
@@ -120,5 +121,34 @@ public class UserController {
         Map<String, Object> map = new HashMap<>();
         map.put("message", "操作成功");
         return map;
+    }
+
+    @PutMapping("")
+    public void update(@RequestBody String json, HttpServletRequest request) {
+        Claims claims = JwtUtils.getClaims(request);
+        int level = (int) claims.get("level");
+        Integer id = Convert.toInt(claims.get("id"));
+        try {
+            if (level == 3) {
+                Admin admin = JSONUtil.toBean(json, Admin.class, true);
+                admin.setId(id);
+                adminService.updateInfo(admin);
+            } else if (level == 2) {
+                Teacher teacher = JSONUtil.toBean(json, Teacher.class, true);
+                teacher.setId(id);
+                teacherService.updateInfo(teacher);
+            } else if (level == 1) {
+                Student student = JSONUtil.toBean(json, Student.class, true);
+                student.setId(id);
+                studentService.updateInfo(student);
+                System.out.println(123);
+            }else {
+                throw new DefinitionException(ErrorEnum.ERROR);
+            }
+        }catch (Exception e) {
+            log.error("更新失败", e);
+            throw new DefinitionException(ErrorEnum.ERROR);
+        }
+
     }
 }

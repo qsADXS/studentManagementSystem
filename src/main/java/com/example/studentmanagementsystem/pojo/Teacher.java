@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
     * 和数据库相同
  */
 public class Teacher {
-    String id;//职工号
+    Integer id;//职工号
     String name;
     String password;
-    int sex;
-    int age;
+    Integer sex;
+    Integer age;
     final int level = 2;//教师的level为2
     String title;//职称
-    int college_id;//学院id
+    Integer college_id;//学院id
 
 }
